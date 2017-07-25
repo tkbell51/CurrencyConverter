@@ -9,17 +9,46 @@ import static org.junit.Assert.*;
  */
 public class CurrencyConverter {
     @Test
-    public void CurrencyConverterTest() {
-        Money money = new Money(30, "USD");
+    public void ConverterTest() {
+        Money money = new Money(30, "USD", "USD");
         money.toUSD(money.getAmount());
-        assertEquals(30, money.getResult(), .001);
+        assertEquals(30, money.getResult(), .01);
     }
     @Test
-    public void CurrencyConverterTestEUR(){
-        Money money = new Money(40, "USD");
+    public void ConverterTestEUR(){
+        Money money = new Money(34, "USD", "EUR");
         money.toEUR(money.getAmount());
-        assertEquals(1, money.getResult(),.001);
+        assertEquals(29.2, money.getResult(),.01);
     }
-
+    @Test
+    public void ConverterTestJPY(){
+        Money money = new Money(23.50, "USD", "JPY");
+        money.toJPY(money.getAmount());
+        assertEquals(2629.25, money.getResult(), .01);
+    }
+    @Test
+    public void ConverterTestBTC(){
+        Money money = new Money(15, "USD", "BTC");
+        money.toBTC(money.getAmount());
+        assertEquals(0.00585364, money.getResult(), .01);
+    }
+    @Test
+    public void ConverterfromEUR(){
+        Money money = new Money(30, "EUR", "USD");
+        money.fromEUR(money.getAmount());
+        assertEquals(34.9451, money.getResult(), .01);
+    }
+    @Test
+    public void ConverterfromJPY(){
+        Money money = new Money(25, "JPY", "USD");
+        money.fromJPY(money.getAmount());
+        assertEquals(0.223451, money.getResult(), .01);
+    }
+    @Test
+    public void ConverterfromBTC(){
+        Money money = new Money(1, "BTC", "USD");
+        money.fromBTC((money.getAmount()));
+        assertEquals(2559.29, money.getResult(), .01);
+    }
 
 }
